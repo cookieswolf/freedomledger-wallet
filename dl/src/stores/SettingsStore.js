@@ -7,7 +7,7 @@ import ls from "common/localStorage";
 
 const CORE_ASSET = "BTS"; // Setting this to BTS to prevent loading issues when used with BTS chain which is the most usual case currently
 
-const STORAGE_KEY = "__graphene__";
+const STORAGE_KEY = "__freedom__";
 let ss = new ls(STORAGE_KEY);
 
 class SettingsStore {
@@ -16,9 +16,9 @@ class SettingsStore {
 
         this.defaultSettings = Immutable.Map({
             locale: "en",
-            connection: "wss://bitshares.openledger.info/ws",
-            faucet_address: "https://bitshares.openledger.info",
             unit: CORE_ASSET,
+            connection: "wss://secure.freedomledger.com/ws",
+            faucet_address: "https://secure.freedomledger.com",
             showSettles: false,
             walletLockTimeout: 60 * 10,
             themes: "darkTheme",
@@ -27,13 +27,12 @@ class SettingsStore {
 
         // Default markets setup
         let topMarkets = [
-            "MKR", "OPEN.MKR", "BTS", "OPEN.ETH", "ICOO", "BTC", "OPEN.LISK",
-            "OPEN.STEEM", "OPEN.DAO", "PEERPLAYS", "USD", "CNY", "BTSR", "OBITS",
-            "OPEN.DGD", "EUR", "TRADE.BTC", "CASH.BTC", "GOLD", "SILVER",
-            "OPEN.USDT", "OPEN.EURT", "OPEN.BTC", "CADASTRAL"
+            "BTS", "OPEN.ETH","BTC", "PEERPLAYS", "USD", "CNY",
+            "EUR", "TRADE.BTC", "CASH.BTC", "GOLD", "SILVER",
+            "OPEN.BTC"
         ];
 
-        this.preferredBases = Immutable.List([CORE_ASSET, "OPEN.BTC", "USD", "CNY", "BTC"]);
+        this.preferredBases = Immutable.List([CORE_ASSET, "PEERPLAYS", "OPEN.BTC", "USD", "CNY", "BTC"]);
         // Openledger
         // this.preferredBases = Immutable.List(["OPEN.BTC", "OPEN.ETH", "OPEN.USDT", "OPEN.EURT", CORE_ASSET]);
 
@@ -63,6 +62,7 @@ class SettingsStore {
                 "tr"
             ],
             connection: [
+                "wss://secure.freedomledger.com/ws",
                 "wss://bitshares.openledger.info/ws",
                 "wss://bitshares.dacplay.org:8089/ws",
                 "wss://dele-puppy.com/ws",
@@ -74,7 +74,7 @@ class SettingsStore {
                 "CNY",
                 "BTC",
                 "EUR",
-                "GBP"
+                "CAD"
             ],
             showSettles: [
                 {translate: "yes"},

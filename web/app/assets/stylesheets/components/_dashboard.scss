@@ -22,3 +22,32 @@ div.fm-container {
     padding-top: 4px;
    }
 }
+
+.callout {
+    margin: 0 0 1rem 0;
+    padding: 1rem;
+    border: 1px solid rgba(10, 10, 10, 0.25);
+    border-radius: 0;
+    position: relative;
+    color: #0a0a0a;
+    background-color: white;
+}
+.callout.alert {
+    background-color: #fce6e2;
+}
+.callout.warning {
+    background-color: #fff3d9;
+}
+.callout.success {
+    background-color: #e1faea;
+}
+.callout.primary {
+    background-color: #def0fc;
+}
+.callout.secondary {
+    background-color: #ebebeb;
+}
+.callout h5 {
+ color: black !important;
+ font-weight: 800;
+}

@@ -8,6 +8,8 @@ import ps from "perfect-scrollbar";
 import AssetName from "../Utility/AssetName";
 import assetUtils from "common/asset_utils";
 import MarketCard from "./MarketCard";
+import SettingsStore from "stores/SettingsStore";
+import SettingsActions from "actions/SettingsActions";
 
 class Dashboard extends React.Component {
 
@@ -17,7 +19,8 @@ class Dashboard extends React.Component {
         this.state = {
             width: null,
             height: null,
-            showIgnored: false
+            showIgnored: false,
+            removeBackupWarning: SettingsStore.getState().settings.get("removeBackupWarning", false)
         };
 
         this._setDimensions = this._setDimensions.bind(this);
@@ -66,6 +69,15 @@ class Dashboard extends React.Component {
         });
     }
 
+    _onCloseWarning() {
+        let newVal = !this.state.removeBackupWarning
+        this.setState({
+            removeBackupWarning: newVal
+        });
+        SettingsActions.changeSetting({setting: "removeBackupWarning", value: newVal });
+        this.forceUpdate(); // Not sure why this is needed
+    }
+
     render() {
         let {linkedAccounts, myIgnoredAccounts} = this.props;
         let {width, height, showIgnored} = this.state;
@@ -76,25 +88,22 @@ class Dashboard extends React.Component {
         let accountCount = linkedAccounts.size + myIgnoredAccounts.size;
 
         let featuredMarkets = [
-            ["OPEN.ETH", "OPEN.DAO"],
+            ["OPEN.BTC", "PEERPLAYS"],
+            ["USD"     , "PEERPLAYS"],
+            ["BTS"     , "PEERPLAYS"],
+            ["OPEN.ETH", "PEERPLAYS"],
             ["OPEN.BTC", "MKR"],
             ["OPEN.BTC", "OPEN.DGD"],
             ["OPEN.BTC", "OPEN.STEEM"],
-            ["BTS", "OPEN.LISK"],
-            ["BTS", "BTSR"],
-            ["BTS", "OBITS"],
             ["BTS", "USD"],
             ["BTS", "CNY"],
             ["BTC", "BTS"],
             ["BTS", "GOLD"],
             ["OPEN.BTC", "OPEN.ETH"],
-            // ["BTS", "SILVER"]
-            // ["BTS", "EUR"]
         ];
 
         let newAssets = [
-            "OPEN.DAO",
-            "OPEN.LISK"
+            "PEERPLAYS",
         ];
 
         let markets = featuredMarkets.map((pair, index) => {
@@ -118,8 +127,33 @@ class Dashboard extends React.Component {
             );
         });
 
+        let warning = (!this.state.removeBackupWarning) ?
+                <div className="grid-container">
+                    <div className="grid-block no-overflow">
+                        <div className="callout warning">
+                          <h5>Backup required!</h5>
+                          <p>Freedomledger is built on a decentralized blockchain. This means your funds are
+                          <strong> 100% in your control at all times</strong>. Unlike other cryptocurrency exchanges, we
+                          do not store your account information on our server. The private keys to your account are
+                          <strong> stored in your web
+                          browser</strong>. If you do not have an account backup, you will lose your funds permanently
+                          when you delete your browser cache or format your hard drive. Freedom ledger cannot restore
+                          lost funds. You must backup your own account.</p>
+
+                          <a className={"button success"} href="#/wallet/backup/create">Create a backup now</a>
+                          <a className={"button success"} href="#/wallet/backup/restore">Restore a backup</a>
+                          <button className={"button outline"} type="button"
+                                  onClick={this._onCloseWarning.bind(this)}>
+                                  Understood!
+                          </button>
+                        </div>
+                    </div>
+                </div>
+               : null;
+
         return (
             <div ref="wrapper" className="grid-block page-layout vertical">
+                {warning}
                 <div ref="container" className="grid-container" style={{padding: "25px 10px 0 10px"}}>
                     <Translate content="exchange.featured" component="h4" />
                     <div className="grid-block small-up-1 medium-up-3 large-up-4 no-overflow">

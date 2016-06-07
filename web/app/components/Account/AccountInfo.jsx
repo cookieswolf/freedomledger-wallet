@@ -28,6 +28,7 @@ class AccountInfo extends React.Component {
         return (
             <div className={"account-info" + (this.props.my_account ? " my-account" : "")}>
                 {this.props.title ? <h4>{this.props.title}</h4> : null}
+                <img src={"images/logo.png"} style={{height:"120px", marginBottom:"5ex"}} />
                 <AccountImage size={image_size} account={account.get("name")} custom_image={null}/>
                 <h5><span className={isLTM ? "lifetime" : ""}>{account.get("name")}</span></h5>
                 <h6 className="subheader">#{display_id} {this.props.my_account ? <span className="my-account-label">(My Account)</span> : null}</h6>

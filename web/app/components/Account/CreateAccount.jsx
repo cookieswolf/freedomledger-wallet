@@ -241,6 +241,9 @@ class CreateAccount extends React.Component {
                     {header}
                 </div>
                 <div className="content-block center-content">
+                 <img src={"images/logo.png"} style={{width:"13em"}} />
+                </div>
+                <div className="content-block center-content">
                         <form
                             style={{maxWidth: "45rem"}}
                             onSubmit={this.onSubmit.bind(this)}
