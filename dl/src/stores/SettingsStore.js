@@ -20,6 +20,7 @@ class SettingsStore {
             connection: "wss://secure.freedomledger.com/ws",
             faucet_address: "https://secure.freedomledger.com",
             showSettles: false,
+            showAssetPercent: false,
             walletLockTimeout: 60 * 10,
             themes: "darkTheme",
             disableChat: false
@@ -77,6 +78,10 @@ class SettingsStore {
                 "CAD"
             ],
             showSettles: [
+                {translate: "yes"},
+                {translate: "no"}
+            ],
+            showAssetPercent: [
                 {translate: "yes"},
                 {translate: "no"}
             ],

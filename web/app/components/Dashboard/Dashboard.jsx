@@ -96,8 +96,7 @@ class Dashboard extends React.Component {
             ["OPEN.BTC", "OPEN.DGD"],
             ["OPEN.BTC", "OPEN.STEEM"],
             ["BTS", "USD"],
-            ["BTS", "CNY"],
-            ["BTC", "BTS"],
+            ["BTC", "BTS", false],
             ["BTS", "GOLD"],
             ["OPEN.BTC", "OPEN.ETH"],
         ];
@@ -123,6 +122,7 @@ class Dashboard extends React.Component {
                     className={className}
                     quote={pair[0]}
                     base={pair[1]}
+                    invert={pair[2]}
                 />
             );
         });
